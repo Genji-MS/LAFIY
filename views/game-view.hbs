@@ -1,0 +1,17 @@
+<div class="row">
+  <div class="col-sm-6 col-sm-offset-3">
+      <class="lead">{{game.title}}<br><br></a>
+      <div><small> On the topic of {{game.topic}}</small></div>
+      <p> Lower a finger if you ...</p>
+
+      {{#each game.finger}}
+        {{> finger finger=this gameId=../game._id}}
+      {{/each}}
+      <form action="/games/{{game._id}}/ifyou" method="post">
+        <textarea class='form-control' name="ifyou" placeholder="insert your challenge"></textarea>
+        <div class="text-right">
+          <button type="submit" class="btn btn-primary">Save</button>
+        </div>
+      </form>
+  </div>
+</div>
