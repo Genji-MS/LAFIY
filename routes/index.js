@@ -1,11 +1,19 @@
 const express = require('express')
-const postRoutes = require('./posts.js')
+const gameRoutes = require('./games.js')
+const Game = require('../models/game.js');
 
 const router = express.Router()
 
 router.get('/', (req, res) => {
-    res.render("index", {});
+    Game.find({}).lean()
+    .then(games => {
+        res.render("index", {games});
+    })
+    .catch(err => {
+        console.log(err.message);
+    });
 })
-router.use('/posts', postRoutes)
+
+router.use('/games', gameRoutes)
 
 module.exports = router
