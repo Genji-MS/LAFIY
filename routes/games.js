@@ -29,12 +29,22 @@ router.post('/new', (req, res) => {
 
 // GET ONE
 router.get("/:id", function(req, res) {
-    // SHOW
     Game.findById(req.params.id).lean() //.populate('comments').lean()
     .then((game) => {
         res.render('game-view', {game})
     }).catch((err) => {
         console.log(err.message)
+    });
+});
+
+// VIEW BY TOPIC
+router.get("/n/:topic", function(req, res) {
+    Game.find({ topic: req.params.topic }).lean()
+    .then(games => {
+        res.render("topic", { games, topic:req.params.topic });
+    })
+    .catch(err => {
+        console.log(err);
     });
 });
 
