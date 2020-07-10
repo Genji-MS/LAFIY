@@ -12,7 +12,9 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 // Database Setup
-require('./data/server.js');
+require('./data/server');
+require('./models/game');
+require('./models/challenge');
 
 // Routes
 const router = require('./routes/index.js')

@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router();
-const Game = require('../models/game.js');
+const Game = require('../models/game');
+const Challenge = require('../models/challenge');
 
 // CREATE GET
 router.get('/new', async (req, res) => {
@@ -29,7 +30,7 @@ router.post('/new', (req, res) => {
 
 // GET ONE
 router.get("/:id", function(req, res) {
-    Game.findById(req.params.id).lean() //.populate('comments').lean()
+    Game.findById(req.params.id).populate('challenges').lean()
     .then((game) => {
         res.render('game-view', {game})
     }).catch((err) => {
@@ -48,5 +49,21 @@ router.get("/n/:topic", function(req, res) {
     });
 });
 
+// CREATE Comment
+router.post("/:id/challenge", function (req, res) {
+    console.log(req.body);
+    const challenge = new Challenge(req.body);
+    //challenge.challenge = req.body.challenge;
+    Game.findById(req.params.id)
+        .then(game => {
+            challenge.save()
+            game.challenges.push(challenge);
+            game.save()                    
+            res.redirect(`/games/${req.params.id}`);
+        })
+        .catch(err => {
+            console.log(err);
+        });
+});
 
 module.exports = router
