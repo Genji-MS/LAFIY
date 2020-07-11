@@ -1,20 +1,43 @@
 <div class="row">
   <div class="col-sm-6 col-sm-offset-3">
-    <class="lead">{{game.title}}<br><br></a>
-    <div><small> On the topic of {{game.topic}}</small></div>
+    <p></p>
+    <div class="card text-white bg-info mb-3">
+      <div class="card-header">
+        <div class="row">
+          <div class="col-sm-6">
+            <strong>{{game.title}}</strong>
+          </div>
+          <div class="col-sm-6 text-right">
+            <small>On the topic of {{game.topic}}</small>
+          </div>  
+        </div>      
+      </div>
+    </div>
+
     <p> Lower a finger if you ...</p>
 
     {{#each game.challenges}}
       {{> challenge challenge=this}}
     {{/each}}
 
+    {{#if currentUser}}
     <form action="/games/{{game._id}}/challenge" method="post">
       <div class="form-group">
         <textarea class='form-control' name="challenge" placeholder="insert your challenge"></textarea>
-        <div class="text-right">
+        <div class="text-left">
           <button type="submit" class="btn btn-primary">Save</button>
         </div>
       </div>
     </form>
+    {{else}}
+    <form action="/games/{{game._id}}" >
+      <div class="form-group">
+        <textarea class='form-control' disabled name="challenge" placeholder="Sign-In to post your challenge"></textarea>
+        <div class="text-left">
+          <button class="btn btn-secondary" disabled>Save</button>
+        </div>
+      </div>
+    </form>
+    {{/if}}
   </div>
 </div>

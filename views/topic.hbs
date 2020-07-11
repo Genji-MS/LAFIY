@@ -4,10 +4,7 @@
   <div class="col-sm-8 col-sm-offset-2">
     <ul>
       {{#each games}}
-        <li class="list-group-item">
-          <div class="lead"><a href="/games/{{this._id}}">{{this.title}}</a></div>
-          <div class="text-right"><small>{{this.topic}}</a></small></div>
-        </li>
+        {{> game game=this}}
       {{/each}}
     </ul>
   </div>

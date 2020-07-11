@@ -2,11 +2,13 @@ const express = require('express')
 const router = express.Router();
 const Game = require('../models/game');
 const Challenge = require('../models/challenge');
+const User = require('../models/user');
 
 // CREATE GET
 router.get('/new', async (req, res) => {
+    var currentUser = req.user;
     try {
-        return res.render('game-new', {})
+        return res.render('game-new', {currentUser})
     } catch (err) {
         return console.log(err);
     }
@@ -30,9 +32,10 @@ router.post('/new', (req, res) => {
 
 // GET ONE
 router.get("/:id", function(req, res) {
+    var currentUser = req.user;
     Game.findById(req.params.id).populate('challenges').lean()
     .then((game) => {
-        res.render('game-view', {game})
+        res.render('game-view', {game, currentUser})
     }).catch((err) => {
         console.log(err.message)
     });
@@ -40,9 +43,10 @@ router.get("/:id", function(req, res) {
 
 // VIEW BY TOPIC
 router.get("/n/:topic", function(req, res) {
+    var currentUser = req.user;
     Game.find({ topic: req.params.topic }).lean()
     .then(games => {
-        res.render("topic", { games, topic:req.params.topic });
+        res.render("topic", { games, currentUser, topic:req.params.topic });
     })
     .catch(err => {
         console.log(err);
