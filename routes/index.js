@@ -1,5 +1,6 @@
 const express = require('express')
-const gameRoutes = require('./games.js')
+const gameRoutes = require('./games')
+const userRoutes = require('./sign')
 const Game = require('../models/game.js');
 
 const router = express.Router()
@@ -15,5 +16,6 @@ router.get('/', (req, res) => {
 })
 
 router.use('/games', gameRoutes)
+router.use('/sign', userRoutes)
 
 module.exports = router
