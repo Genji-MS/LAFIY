@@ -15,12 +15,12 @@ var checkAuth = (req, res, next) => {
     var decodedToken = jwt.decode(token, { complete: true }) || {};
     req.user = decodedToken.payload;
     }
-    console.log(token);
+    // console.log(token);
     next();
 };
 
+app.use(express.static('public'));
 app.use(cookieParser());
-app.use(checkAuth);
 
 //allows use of shorter extension .hbs instead of .handlebars
 exphbs = require('express-handlebars'),

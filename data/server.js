@@ -7,6 +7,7 @@ mongoose.Promise = global.Promise;
 mongoose.connect(
   "mongodb://localhost/LAFIY-db",
   { useUnifiedTopology: true,
+    useFindAndModify: false,
     useNewUrlParser: true },
   function(err, db) {
     assert.equal(null, err);

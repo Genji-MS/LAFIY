@@ -1,11 +1,41 @@
 <div class="col comment-indent">
     <div class="container">
         <div class="row">
-            <div class="card text-white bg-info mb-4">
-                <div class="card-body">
-                <p class="card-text">
+            <div class="card text-white bg-info mb-3">
+                <div class="card-header">
+                <p>
                     <p>{{challenge.challenge}}</p>
                 </p>
+                <div class="card-text">
+                {{!-- {{#unless currentUser}} --}}
+                    <div class="row">
+                        {{!-- {{this.voteScore}} --}}
+                        {{!-- {{#if this.finger}} --}}
+                        <div class="col-sm-6">
+                            <form class="finger-up" data-id="{{this._id}}">
+                                {{#if this.choice_True}}
+                                <button class="btn btn-success disabled">NOPE</button>
+                                {{else if this.choice_False}}
+                                <button class="btn btn-outline-secondary disabled">NOPE</button>
+                                {{else}}
+                                <button class="btn btn-outline-secondary" type="submit">NOPE</button>
+                                {{/if}}
+                            </form>
+                        </div>
+                        <div class="col-sm-6 text-right">
+                            <form class="finger-down" data-id="{{this._id}}">
+                                {{#if this.choice_True}}
+                                <button class="btn btn-outline-secondary disabled">LOWER</button>
+                                {{else if this.choice_False}}
+                                <button class="btn btn-warning disabled">LOWER</button>
+                                {{else}}
+                                <button class="btn btn-outline-secondary" type="submit">LOWER</button>
+                                {{/if}}
+                            </form>
+                        </div>  
+                    </div> 
+                {{!-- {{/unless}} --}}
+                </div>
             </div>
         </div>
     </div>
